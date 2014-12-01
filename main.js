@@ -8,6 +8,7 @@ Using a ssh client:
 1. echo "src maa-upm http://iotdk.intel.com/repos/1.1/intelgalactic" > /etc/opkg/intel-iotdk.conf
 2. opkg update
 3. opkg upgrade
+
 */
 
 
@@ -22,9 +23,6 @@ TemperatureSensor = {
         myAnalogPin = new mraa.Aio(AnalogPinNumber);
     },
     getTemperature: function(){
-        //type = 0 (celsius)
-        //type = 1 (fahrenheit)
-        //type = 2 (both returned as object)
         var B = 3975;
         var a = myAnalogPin.read();
         console.log("Checking....");
