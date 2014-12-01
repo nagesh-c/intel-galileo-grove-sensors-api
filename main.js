@@ -19,6 +19,8 @@ Article: https://software.intel.com/en-us/html5/articles/iot-local-temperature-n
 
 
 var mraa = require("mraa");
+
+/* Temperature Sensor*/
 TemperatureSensor = {
     myAnalogPin : 0,
     initialize: function(AnalogPinNumber){
@@ -41,5 +43,17 @@ TemperatureSensor = {
         Temp = { celsius : celsius_temperature, fahrenheit: fahrenheit_temperature};
         //console.log(Temp);
         return Temp;
+    }
+};
+
+/* Button */
+Button = {
+    myButton : 2,
+    initialize: function(buttonPinNumber){
+        myButton = new mraa.Gpio(buttonPinNumber);
+        myButton.dir(mraa.DIR_IN);
+    },
+    checkButton: function(){
+        console.log(myButton.read());
     }
 };
