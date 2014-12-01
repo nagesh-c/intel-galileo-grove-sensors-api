@@ -19,6 +19,7 @@ Article: https://software.intel.com/en-us/html5/articles/iot-local-temperature-n
 
 
 var mraa = require("mraa");
+var upmled = require("jsupm_grove");
 
 /* Temperature Sensor*/
 TemperatureSensor = {
@@ -55,5 +56,21 @@ Button = {
     },
     checkButton: function(){
         console.log(myButton.read());
+    }
+};
+
+/*LED*/
+LED = {
+    myLED: 2,
+    initialize: function(ledPinNumber){
+        myLED = new upmled.GroveLed(ledPinNumber);
+    },
+    turnOnOff: function(status){
+        if(status === true){
+            myLED.on();
+        }
+        if(status === false){
+            myLED.off(); 
+        }
     }
 };
