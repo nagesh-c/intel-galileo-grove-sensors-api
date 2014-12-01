@@ -19,9 +19,9 @@ Article: https://software.intel.com/en-us/html5/articles/iot-local-temperature-n
 
 
 var mraa = require("mraa");
-var upmled = require("jsupm_grove");
+var upm = require("jsupm_grove");
 
-/* Temperature Sensor*/
+/* Temperature Sensor */
 TemperatureSensor = {
     myAnalogPin : 0,
     initialize: function(AnalogPinNumber){
@@ -55,17 +55,17 @@ Button = {
         myButton.dir(mraa.DIR_IN);
     },
     checkButton: function(){
-        console.log(myButton.read());
+        return myButton.read();
     }
 };
 
-/*LED*/
+/* LED */
 LED = {
     myLED: 2,
     initialize: function(ledPinNumber){
-        myLED = new upmled.GroveLed(ledPinNumber);
+        myLED = new upm.GroveLed(ledPinNumber);
     },
-    turnOnOff: function(status){
+    setLedOnOff: function(status){
         if(status === true){
             myLED.on();
         }
@@ -74,3 +74,47 @@ LED = {
         }
     }
 };
+
+/* Ligth Sensor */
+LightSensor= {
+    myLight: 0,
+    initialize: function(lightPinNumber){
+        myLight = new upm.GroveLight(lightPinNumber);
+    },
+    getLightValue: function(){
+        console.log(myLight.value());
+    }
+};
+
+/* Buzzer Sensor */
+BuzzerSensor= {
+    myBuzzer: 0,
+    state: 0,
+    initialize: function(buzzerPinNumber){
+        myBuzzer = new mraa.Gpio(buzzerPinNumber);
+        myBuzzer.dir(mraa.DIR_OUT);
+    },
+    buzzerOn: function(){
+        if(this.state === 0){
+            myBuzzer.write(1);
+            this.state = 1;
+        }
+        else{
+            myBuzzer.write(0);
+            this.state = 0;
+        }
+    }
+};
+
+/* Touch Sensor */
+TouchSensor= {
+    myTouch: 0,
+    initialize: function(touchPinNumber){
+        myTouch = new mraa.Gpio(touchPinNumber);
+        myTouch.dir(mraa.DIR_IN);
+    },
+    checkTouch: function(){
+        return myTouch.read();
+    }
+};
+
