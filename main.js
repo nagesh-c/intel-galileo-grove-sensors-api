@@ -33,15 +33,13 @@ TemperatureSensor = {
         var a = myAnalogPin.read();
         console.log("Checking....");
         var resistance = (1023 - a) * 10000 / a; //get the resistance of the sensor;
-        console.log("Resistance: "+resistance);
+        //console.log("Resistance: "+resistance);
         var celsius_temperature = 1 / (Math.log(resistance / 10000) / B + 1 / 298.15) - 273.15;//convert to temperature via datasheet ;
-        console.log("Celsius Temperature:"+celsius_temperature);                 
+        //console.log("Celsius Temperature:"+celsius_temperature);                 
         var fahrenheit_temperature = (celsius_temperature * (9 / 5)) + 32;
-        console.log("Fahrenheit Temperature: " + fahrenheit_temperature);    
+        //console.log("Fahrenheit Temperature: " + fahrenheit_temperature);    
         Temp = { celsius : celsius_temperature, fahrenheit: fahrenheit_temperature};
-        console.log(Temp);
+        //console.log(Temp);
+        return Temp;
     }
 };
-
-TemperatureSensor.initialize(0);
-setInterval(TemperatureSensor.getTemperature,4000);
