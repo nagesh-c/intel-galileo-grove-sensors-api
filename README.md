@@ -1,1 +1,1 @@
-This repo is written to support ```Grove Sensor on Intel Galileo Board. 
+This repo is written to support Grove Sensor on Intel Galileo Board. 
