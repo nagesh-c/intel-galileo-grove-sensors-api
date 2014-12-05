@@ -14,6 +14,7 @@ Using a ssh client:
 
 var mraa = require("mraa");
 var upm = require("jsupm_grove");
+var upm_sound = require('jsupm_mic');
 
 /* Temperature Sensor */
 TemperatureSensor = {
@@ -108,3 +109,38 @@ TouchSensor= {
         return myTouch.read();
     }
 };
+
+/* Sound Sensor */
+SoundSensor = {
+    mySound: 0,
+    thresholdContext: {
+        averageReading : 0,
+        runningAverage : 0,
+        averagedOver   : 2,
+    },
+    initialize: function(soundPinNumber){
+        mySound = new mraa.Aio(soundPinNumber);
+    },
+    getSoundData: function(freqMS,numberOfSamples){
+        var sampleIdx = 0;
+        var buffer = [];
+        if(!freqMS || (numberOfSamples > 0xFFFFFF)){
+            console.log("error");
+        }
+        else{
+            var id = setInterval(function(){
+                sampleIdx++;
+                if(sampleIdx > numberOfSamples){
+                    clearInterval(id);
+                    console.log( buffer);
+                }
+                else{
+                    buffer.push(mySound.read());
+                }
+            },1000);
+        }
+    }    
+}
+
+SoundSensor.initialize(1);
+SoundSensor.getSoundData(2,4);
