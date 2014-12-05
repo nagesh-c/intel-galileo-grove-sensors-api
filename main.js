@@ -121,9 +121,9 @@ SoundSensor = {
     initialize: function(soundPinNumber){
         mySound = new mraa.Aio(soundPinNumber);
     },
-    getSoundData: function(freqMS,numberOfSamples){
+    getSoundData: function(freqMS,numberOfSamples,buffer){
         var sampleIdx = 0;
-        var buffer = [];
+        //var buffer = [];
         if(!freqMS || (numberOfSamples > 0xFFFFFF)){
             console.log("error");
         }
@@ -132,7 +132,6 @@ SoundSensor = {
                 sampleIdx++;
                 if(sampleIdx > numberOfSamples){
                     clearInterval(id);
-                    console.log( buffer);
                 }
                 else{
                     buffer.push(mySound.read());
