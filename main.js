@@ -15,6 +15,7 @@ Using a ssh client:
 var mraa = require("mraa");
 var upm = require("jsupm_grove");
 //var upm_sound = require('jsupm_mic'); // parameter mismatch for getSampledWindow()
+var lcd = require('jsupm_i2clcd');
 
 /* Temperature Sensor */
 TemperatureSensor = {
@@ -159,5 +160,17 @@ AngleSensor = {
         buffer.push(myAngle.rel_deg());
         buffer.push(myAngle.rel_rad().toFixed(3));
         return buffer;
+    }
+}
+
+/* LCD */
+LCD= {
+    myLCD: 0,
+    initialize: function(lcdPinNuber){
+        myLCD = new lcd.Jhd1313m1(lcdPinNuber, 0x3E, 0x62);
+    },
+    display: function(row,column,textToDisplay){
+        myLCD.setCursor(row,column);
+        myLCD.write(textToDisplay);
     }
 }
