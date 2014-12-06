@@ -14,7 +14,7 @@ Using a ssh client:
 
 var mraa = require("mraa");
 var upm = require("jsupm_grove");
-var upm_sound = require('jsupm_mic');
+//var upm_sound = require('jsupm_mic'); // parameter mismatch for getSampledWindow()
 
 /* Temperature Sensor */
 TemperatureSensor = {
@@ -139,3 +139,25 @@ SoundSensor = {
         }
     }
 }
+
+var groveRotary = new upm.GroveRotary(2);
+loop();
+
+function loop()
+{
+    var abs = groveRotary.abs_value();
+    var absdeg = groveRotary.abs_deg();
+    var absrad = groveRotary.abs_rad();
+
+    var rel = groveRotary.rel_value();
+    var reldeg = groveRotary.rel_deg();
+    var relrad = groveRotary.rel_rad();
+
+    //write the knob value to the console in different formats
+    console.log("Abs: " + abs + " " + Math.round(parseInt(absdeg)) + " " + absrad.toFixed(3));
+    console.log("Rel: " + rel + " " + Math.round(parseInt(reldeg)) + " " + relrad.toFixed(3));
+
+    //wait 2 s and call function again
+    setTimeout(loop, 2000);
+}
+
