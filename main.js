@@ -140,24 +140,24 @@ SoundSensor = {
     }
 }
 
-var groveRotary = new upm.GroveRotary(2);
-loop();
-
-function loop()
-{
-    var abs = groveRotary.abs_value();
-    var absdeg = groveRotary.abs_deg();
-    var absrad = groveRotary.abs_rad();
-
-    var rel = groveRotary.rel_value();
-    var reldeg = groveRotary.rel_deg();
-    var relrad = groveRotary.rel_rad();
-
-    //write the knob value to the console in different formats
-    console.log("Abs: " + abs + " " + Math.round(parseInt(absdeg)) + " " + absrad.toFixed(3));
-    console.log("Rel: " + rel + " " + Math.round(parseInt(reldeg)) + " " + relrad.toFixed(3));
-
-    //wait 2 s and call function again
-    setTimeout(loop, 2000);
+/* Rotary Angle Sensor */
+AngleSensor = {
+    myAngle: 0,
+    initialize: function(anglePinNumber){
+        myAngle = new upm.GroveRotary(anglePinNumber);
+    },
+    getAbsValue: function(){
+        buffer = [];
+        buffer.push(myAngle.abs_value());
+        buffer.push(myAngle.abs_deg());
+        buffer.push(myAngle.abs_rad().toFixed(3));
+        return buffer;
+    }
+    getRelValue: function(){
+        buffer = [];
+        buffer.push(myAngle.rel_value());
+        buffer.push(myAngle.rel_deg());
+        buffer.push(myAngle.rel_rad().toFixed(3));
+        return buffer;
+    }
 }
-
