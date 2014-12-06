@@ -169,8 +169,11 @@ LCD= {
     initialize: function(lcdPinNuber){
         myLCD = new lcd.Jhd1313m1(lcdPinNuber, 0x3E, 0x62);
     },
-    display: function(row,column,textToDisplay){
+    displayLCD: function(row,column,textToDisplay){
         myLCD.setCursor(row,column);
         myLCD.write(textToDisplay);
+    },
+    setColor: function(r,g,b){
+        myLCD.setColor(r,g,b);
     }
 }
