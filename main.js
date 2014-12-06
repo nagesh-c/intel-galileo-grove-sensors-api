@@ -152,7 +152,7 @@ AngleSensor = {
         buffer.push(myAngle.abs_deg());
         buffer.push(myAngle.abs_rad().toFixed(3));
         return buffer;
-    }
+    },
     getRelValue: function(){
         buffer = [];
         buffer.push(myAngle.rel_value());
@@ -161,3 +161,6 @@ AngleSensor = {
         return buffer;
     }
 }
+
+LED.initialize(8);
+LED.setLedOnOff(false);
