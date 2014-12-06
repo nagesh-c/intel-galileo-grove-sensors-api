@@ -16,6 +16,7 @@ var mraa = require("mraa");
 var upm = require("jsupm_grove");
 //var upm_sound = require('jsupm_mic'); // parameter mismatch for getSampledWindow()
 var lcd = require('jsupm_i2clcd');
+var upmTP401 = require('jsupm_gas');
 
 /* Temperature Sensor */
 TemperatureSensor = {
@@ -175,5 +176,31 @@ LCD= {
     },
     setColor: function(r,g,b){
         myLCD.setColor(r,g,b);
+    }
+}
+
+/* Air Quality Sensor 
+Sensor heatup should be specified in the ReadMe */
+AirQuality={
+    myAirquality: 0,
+    initialize: function(airqualityPinNumber){
+        myAirquality = new upmTP401.TP401(airqualityPinNumber);
+    },
+    checkAirQualityLevel: function(value){
+        if(value < 50) return "Fresh Air";
+        if(value < 200) return "Normal Indoor Air";
+        if(value < 400) return "Low Pollution";
+        if(value < 600) return "High Pollution - Action Recommended";
+        return "Very High Pollution - Take Action Immediately";
+    },
+    getsensorData: function(){
+        var value = myAirquality.getSample();
+        var ppm = myAirquality.getPPM();
+        //write the sensor values to the console
+        console.log("raw: " + value + " ppm: " + (" " + ppm.toFixed(2)).substring(-5, 5) + "   " + this.checkAirQualityLevel(value));
+        buffer = {};
+        buffer["raw"]= value;
+        buffer["ppm"]= ppm.toFixed(2).substring(-5, 5);
+        return buffer;    
     }
 }
