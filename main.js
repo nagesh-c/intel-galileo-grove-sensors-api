@@ -17,6 +17,7 @@ var upm = require("jsupm_grove");
 //var upm_sound = require('jsupm_mic'); // parameter mismatch for getSampledWindow()
 var lcd = require('jsupm_i2clcd');
 var upmTP401 = require('jsupm_gas');
+var vibSensor = require('jsupm_ldt0028');
 
 /* Temperature Sensor */
 TemperatureSensor = {
@@ -204,3 +205,32 @@ AirQuality={
         return buffer;    
     }
 }
+
+/* Piezo Vibration Sensor 
+code to provide delay:
+function delay( milliseconds ) {
+    var startTime = Date.now();
+    while (Date.now() - startTime < milliseconds);
+}
+*/
+VibrationSensor={
+    myVibSensor: 0,
+    initialize: function(vibsensorPinNumber){
+        myVibSensor = new vibSensor.LDT0028(vibsensorPinNumber);
+    },
+    getVibSensorData: function(){
+        return myVibSensor.getSample();
+    }
+}
+
+VibrationSensor.initialize(1);
+var i = 0;
+var buffer = [];
+var id = setInterval(function(){
+    i++;
+    buffer.push(VibrationSensor.getVibSensorData());
+    if(i >= 5){
+        console.log(buffer);
+        clearInterval(id);
+    }
+},1000);
