@@ -121,23 +121,21 @@ SoundSensor = {
     initialize: function(soundPinNumber){
         mySound = new mraa.Aio(soundPinNumber);
     },
-    getSoundData: function(freqMS,numberOfSamples){
-        var sampleIdx = 0;
-        var buffer=[];
-        if(!freqMS || (numberOfSamples > 0xFFFFFF)){
-            console.log("error");
+    getSampledWindow: function(freqMS, numberofSample){
+        return mySound.read();
+    },
+    findThreshold: function(thresholdValue, buffer){
+        var sum = 0;
+        for(var i=0;i<buffer.length;i++){
+            sum  = sum + buffer[i];
+        }
+        this.thresholdContext.averageReading = sum / buffer.length;
+        this.thresholdContext.runningAverage = (((this.thresholdContext.averagedOver-1) * this.thresholdContext.runningAverage) + this.thresholdContext.averageReading) / this.thresholdContext.averagedOver;
+        if(this.thresholdContext.runningAverage > thresholdValue){
+            return this.thresholdContext.runningAverage;
         }
         else{
-            var id = setInterval(function(){
-                sampleIdx++;
-                if(sampleIdx > numberOfSamples){
-                    clearInterval(id);
-                    console.log(buffer);
-                }
-                else{
-                    buffer.push(mySound.read());
-                }
-            },1000);
+            return 0;
         }
-    }    
+    }
 }
