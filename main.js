@@ -161,6 +161,3 @@ AngleSensor = {
         return buffer;
     }
 }
-
-LED.initialize(8);
-LED.setLedOnOff(false);
