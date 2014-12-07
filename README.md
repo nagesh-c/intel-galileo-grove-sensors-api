@@ -33,8 +33,8 @@ Example:<br>
 2.Porting of <b>upm</b> and <b>mraa</b> to JavaScript<br>
 
 Reference:<br>
-1.<a href="https://github.com/intel-iot-devkit/upm/">upm</a>
-2.<a href="https://github.com/intel-iot-devkit/mraa">mraa</a>
+1.<a href="https://github.com/intel-iot-devkit/upm/">upm</a><br>
+2.<a href="https://github.com/intel-iot-devkit/mraa">mraa</a><br>
 
 <b>NOTE:</b>
 Please do lookup the code for other sensor functions till I update README file
