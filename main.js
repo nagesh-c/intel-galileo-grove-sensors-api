@@ -18,6 +18,8 @@ var upm = require("jsupm_grove");
 var lcd = require('jsupm_i2clcd');
 var upmTP401 = require('jsupm_gas');
 var vibSensor = require('jsupm_ldt0028');
+var accerl = require('jsupm_mma7455');
+var servomot = require('jsupm_servo');
 
 /* Temperature Sensor */
 TemperatureSensor = {
@@ -223,14 +225,32 @@ VibrationSensor={
     }
 }
 
-VibrationSensor.initialize(1);
-var i = 0;
-var buffer = [];
-var id = setInterval(function(){
-    i++;
-    buffer.push(VibrationSensor.getVibSensorData());
-    if(i >= 5){
-        console.log(buffer);
-        clearInterval(id);
+/* 3-Axis Accelerometer (has a bug) */
+Accelerometer={
+    myAccel: 0,
+    initialize: function(accelPinNumber){
+        myAccel = new accerl.MMA7455(accelPinNumber,0x1D);
+    },
+    readAcceleration: function(){
+        console.log(myAccel.readData());
     }
-},1000);
+}
+
+/* Servo Motor */
+ServoMotor= {
+    myServo:0,
+    initialize: function(servoPinNumber){
+        var myServo = new servomot.ES08A(0);
+        myServo.setAngle(180);
+        
+        myServo.setAngle(90);
+        myServo.setAngle(0);
+        myServo.setAngle(90);
+        myServo.setAngle(180);
+        
+    },
+    rotate: function(angle){
+        myServo.setAngle(angle);
+    }
+}
+ServoMotor.initialize(0);
