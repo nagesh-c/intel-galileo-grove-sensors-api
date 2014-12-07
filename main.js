@@ -240,14 +240,7 @@ Accelerometer={
 ServoMotor= {
     myServo:0,
     initialize: function(servoPinNumber){
-        var myServo = new servomot.ES08A(0);
-        myServo.setAngle(180);
-        
-        myServo.setAngle(90);
-        myServo.setAngle(0);
-        myServo.setAngle(90);
-        myServo.setAngle(180);
-        
+        var myServo = new servomot.ES08A(servoPinNumber);
     },
     rotate: function(angle){
         myServo.setAngle(angle);
