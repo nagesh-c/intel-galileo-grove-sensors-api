@@ -253,4 +253,3 @@ ServoMotor= {
         myServo.setAngle(angle);
     }
 }
-ServoMotor.initialize(0);
