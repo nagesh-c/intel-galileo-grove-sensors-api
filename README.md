@@ -28,7 +28,7 @@ Example:<br>
           `var temperature = TemperatureSensor.getTemperature();`<br>
 
 
-<b>FUTURE WORK</b>
+<b>FUTURE WORK</b><br>
 1.Planning to release as a node module<br>
 2.Porting of <b>upm</b> and <b>mraa</b> to JavaScript<br>
 
@@ -38,3 +38,6 @@ Reference:<br>
 
 <b>NOTE:</b>
 Please do lookup the code for other sensor functions till I update README file
+
+<b>IMP NOTE:</b><br>
+I have not written `require()` for individual sensor. Please do write respective `require()` for the sensor being used.
