@@ -12,16 +12,18 @@ Using a ssh client:
 */
 
 
-var mraa = require("mraa");
+/*var mraa = require("mraa");
 var upm = require("jsupm_grove");
 //var upm_sound = require('jsupm_mic'); // parameter mismatch for getSampledWindow()
 var lcd = require('jsupm_i2clcd');
 var upmTP401 = require('jsupm_gas');
 var vibSensor = require('jsupm_ldt0028');
 var accerl = require('jsupm_mma7455');
-var servomot = require('jsupm_servo');
+var servomot = require('jsupm_servo');*/
 
 /* Temperature Sensor */
+
+module.exports = {
 TemperatureSensor = {
     myAnalogPin : 0,
     initialize: function(AnalogPinNumber){
@@ -245,4 +247,5 @@ ServoMotor= {
     rotate: function(angle){
         myServo.setAngle(angle);
     }
+  }
 }
